@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import {Button, StyleSheet, Text, View} from 'react-native';
 import AllExpenses from "./screens/AllExpenses";
 import ManageExpense from "./screens/ManageExpense";
 import RecentExpenses from "./screens/RecentExpenses";
@@ -8,18 +8,27 @@ import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {GlobalStyles} from "./constants/styles";
 import {Ionicons} from '@expo/vector-icons';
+import IconButton from "./components/UI/IconButton";
 
 const Stack = createNativeStackNavigator();
 const Bottom = createBottomTabNavigator();
 
 function ExpensesOverview() {
   return (
-      <Bottom.Navigator screenOptions={{
-          headerStyle: {backgroundColor: GlobalStyles.colors.primary500},
-          headerTintColor: 'white',
-          tabBarStyle: {backgroundColor: GlobalStyles.colors.primary500},
-          tabBarActiveTintColor: GlobalStyles.colors.accent500,
-      }}>
+      <Bottom.Navigator
+          screenOptions={{
+              headerStyle: {backgroundColor: GlobalStyles.colors.primary500},
+              headerTintColor: 'white',
+              tabBarStyle: {backgroundColor: GlobalStyles.colors.primary500},
+              tabBarActiveTintColor: GlobalStyles.colors.accent500,
+              headerRight: ({tintColor}) => (
+                  <IconButton icon='add'
+                              size={36}
+                              color={tintColor} onPress={() => {console.log("tap")}}
+                  />
+              )
+          }
+      }>
           <Bottom.Screen
               name="RecentExpenses"
               component={RecentExpenses}
